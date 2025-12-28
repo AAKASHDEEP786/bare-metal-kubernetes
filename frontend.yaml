@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: aakashdevops/3-tier-frontend:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: BACKEND_URL
+              value: "http://backend.default.svc.cluster.local:5000"
+      # HostAliases to resolve Nginx upstream if required
+      hostAliases:
+        - ip: "10.96.214.62"   # ClusterIP of backend service
+          hostnames:
+            - "backend-svc"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: default
+spec:
+  type: LoadBalancer                # MetalLB will assign external IP
+  selector:
+    app: frontend
+  ports:
+    - port: 80
+      targetPort: 80
