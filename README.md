@@ -160,7 +160,7 @@ kubectl get pods -l app=backend -w
 DevOps Engineer | Kubernetes | Cloud | CI/CD  
 
 - GitHub: https://github.com/AAKASHDEEP786
-- Medium: (Add your Medium blog link here)
+- Medium: https://medium.com/@akashdeep960/building-a-bare-metal-kubernetes-cluster-on-hyper-v-da6e04fddd89
 
 ---
 
